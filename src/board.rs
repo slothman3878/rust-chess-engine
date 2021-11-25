@@ -10,7 +10,7 @@ pub type Grid = [[Square;8];8];
 
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub struct Board {
-  pub grid: Grid,
+  grid: Grid,
 }
 
 const DEFAULT_BOARD_STATE: Grid = [
@@ -65,5 +65,28 @@ impl Board {
     Board {
       grid: DEFAULT_BOARD_STATE
     }
+  }
+
+  pub fn square(self, row: u8, col: u8) -> Square {
+    self.grid[row as usize][col as usize]
+  }
+
+  pub fn replace(self, piece: Piece, row: u8, col: u8) -> Board {
+    let mut new_board = self.clone();
+    new_board.grid[row as usize][col as usize] = Square::Full(piece);
+    new_board
+  }
+
+  pub fn remove(self, row: u8, col: u8) -> Board {
+    let mut new_board = self.clone();
+    new_board.grid[row as usize][col as usize] = Square::Empty;
+    new_board
+  }
+
+  pub fn switch(self, pos1: (u8,u8), pos2: (u8,u8)) -> Board {
+    let mut new_board = self.clone();
+    new_board.grid[pos1.0 as usize][pos1.1 as usize] = self.square(pos2.0,pos2.1);
+    new_board.grid[pos2.0 as usize][pos2.1 as usize] = self.square(pos1.0,pos1.1);
+    new_board
   }
 }
