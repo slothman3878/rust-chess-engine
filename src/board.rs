@@ -1,4 +1,3 @@
-use std::fmt;
 use crate::piece::*;
 
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
@@ -12,11 +11,6 @@ pub type Grid = [[Square;8];8];
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub struct Board {
   pub grid: Grid,
-}
-
-#[derive(Copy, Clone, PartialEq, Eq, Debug)]
-pub enum BoardState {
-  Check(PieceColor), CheckMate(PieceColor), None
 }
 
 const DEFAULT_BOARD_STATE: Grid = [
@@ -71,19 +65,5 @@ impl Board {
     Board {
       grid: DEFAULT_BOARD_STATE
     }
-  }
-
-  pub fn is_check(self) -> BoardState {
-    for row in self.grid.iter() {
-      for square in row.iter() {
-        match square {
-          Square::Full(piece) => {
-            
-          },
-          Square::Empty => {}
-        }
-      }
-    }
-    BoardState::None
   }
 }
